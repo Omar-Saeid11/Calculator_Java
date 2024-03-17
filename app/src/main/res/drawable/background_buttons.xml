@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android" android:visible="true">
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <stroke android:color="#272727"></stroke>
+            <gradient android:centerColor="@color/outlineScreenShowColor">
+            </gradient>
+            <corners android:radius="12dp"></corners>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/button_color"> </solid>
+        </shape>
+    </item>
+</animated-selector>
