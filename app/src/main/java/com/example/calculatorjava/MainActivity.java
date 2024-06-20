@@ -2,12 +2,13 @@ package com.example.calculatorjava;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
-
 import com.example.calculatorjava.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,35 +47,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         binding.ac.setOnClickListener(v -> {
             String txt = binding.textResult.getText().toString();
-            binding.textResult.setText(txt.substring(0, txt.length() - 1));
-        });
-
-        binding.equal.setOnClickListener(v -> {
-            String res = getResText();
-
-            if (res.contains("-")) {
-                String[] txtRes = binding.textResult.getText().toString().split("-");
-                if (txtRes.length == 2) {
-                    setUpCalc(Double.parseDouble(txtRes[0]), '-', Double.parseDouble(txtRes[1]));
-                }
-            } else if (res.contains("+")) {
-                String[] txtRes = binding.textResult.getText().toString().split("\\+");
-                if (txtRes.length == 2) {
-                    setUpCalc(Double.parseDouble(txtRes[0]), '+', Double.parseDouble(txtRes[1]));
-                }
-            } else if (res.contains("*")) {
-                String[] txtRes = binding.textResult.getText().toString().split("\\*");
-                if (txtRes.length == 2) {
-                    setUpCalc(Double.parseDouble(txtRes[0]), '*', Double.parseDouble(txtRes[1]));
-                }
-            } else if (res.contains("/")) {
-                String[] txtRes = binding.textResult.getText().toString().split("/");
-                if (txtRes.length == 2) {
-                    setUpCalc(Double.parseDouble(txtRes[0]), '/', Double.parseDouble(txtRes[1]));
-                }
+            if (!txt.isEmpty()) {
+                binding.textResult.setText(txt.substring(0, txt.length() - 1));
             }
         });
 
+        binding.equal.setOnClickListener(v -> {
+            String expression = getResText();
+            try {
+                double result = ExpressionEvaluator.evaluate(expression);
+                binding.textResult.setText(String.valueOf(result));
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "Error in expression", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -99,31 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void clear() {
         binding.textResult.setText("");
-    }
-
-    private void setUpCalc(double num1, char op, double num2) {
-        switch (op) {
-            case '+': {
-                binding.textResult.setText((num1 + num2 + ""));
-            }
-            break;
-            case '-': {
-                binding.textResult.setText((num1 - num2 + ""));
-            }
-            break;
-            case '*': {
-                binding.textResult.setText((num1 * num2 + ""));
-            }
-            break;
-            case '/': {
-                if (num2 == 0) {
-                    binding.textResult.setText("Can't divide by zero");
-                } else {
-                    binding.textResult.setText((num1 / num2 + ""));
-                }
-            }
-            break;
-        }
     }
 
     public void setColorsAndBackgrounds(
@@ -201,6 +162,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 R.color.outlineScreenShowColor,
                 R.drawable.background_buttons_dark);
     }
-
-
 }

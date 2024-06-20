@@ -1,11 +1,22 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.CalculatorJava" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Base application theme -->
+    <style name="Theme.CalculatorJava" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.CalculatorJava" parent="Base.Theme.CalculatorJava" />
+    <!-- Light Theme -->
+    <style name="Theme.CalculatorJava.Light" parent="Theme.CalculatorJava">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="buttonStyle">@style/buttonShapeLightMode</item>
+    </style>
+
+    <!-- Dark Theme -->
+    <style name="Theme.CalculatorJava.Dark" parent="Theme.CalculatorJava">
+        <item name="colorPrimary">@color/PrimarybackgroundColor</item>
+        <item name="colorPrimaryDark">@color/outlineScreenShowColor</item>
+        <item name="buttonStyle">@style/buttonShape</item>
+    </style>
 
     <style name="textViewProperties" parent="Widget.AppCompat.TextView">
         <item name="layout_constraintEnd_toEndOf">parent</item>
